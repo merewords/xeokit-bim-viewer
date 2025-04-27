@@ -45,7 +45,9 @@
 
     function init() {
 
-        const iframeBaseURL = "./app/?projectId=Systhema&modelId=170133_Asvest_20200131";
+        // const iframeBaseURL = "./app/?projectId=Systhema&modelId=170133_Asvest_20200131";
+        const iframeBaseURL = "./app/?projectId=xeovision&modelId=51335-MEE-MB-ZZ-M3-J-30000-25";
+
 
         const iframeElement = document.getElementById("embeddedViewer");
         if (!iframeElement) {
@@ -58,6 +60,7 @@
             iframeElement.src = iframeBaseURL + "#actions=focusObject,openTab&objectId=" + objectId + "&tabId=objects";
         }
     }
+
 
 </script>
 
