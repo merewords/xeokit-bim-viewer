@@ -8,7 +8,7 @@
       }    
     ],
     "viewerConfigs": {
-        "externalMetadata": true
+        "externalMetadata":false
      },
      "viewerContent": {
        "modelsLoaded": ["51335-KSS-MB-ZZ-M3-A-00001-A5-C05"]
