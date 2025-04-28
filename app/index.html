@@ -9,6 +9,33 @@
     <link rel="stylesheet" href="./lib/fontawesome-free-5.11.2-web/css/all.min.css" type="text/css"/>
     <link rel="stylesheet" href="../dist/xeokit-bim-viewer.css" type="text/css"/>
     <link rel="stylesheet" href="./css/style.css"/>
+
+    <style>
+        #floatingLogo {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          z-index: 10000;
+          display: block;
+        }
+      
+        #floatingLogo img {
+          height: 48px; /* slightly bigger */
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-radius: 8px;
+        }
+      
+        #floatingLogo img:hover {
+          transform: scale(1.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+      
+        /* Move toolbar a bit to the right to avoid overlapping */
+        #myToolbar {
+          margin-left: 70px; /* Adjust this if needed */
+        }
+      </style>
+      
 </head>
 
 <body>
@@ -17,7 +44,16 @@
 <input type="checkbox" id="inspector_toggle"/>
 <label id="inspector_toggle_label" for="inspector_toggle" class="xeokit-i18n inspector_toggle_label xeokit-btn fas fa-info-circle fa-2x" data-xeokit-i18ntip="toolbar.toggleProperties" data-tippy-content="Toggle properties"></label>
 <div id="myExplorer"></div>
+<div id="toolbarContainer" style="display: flex; align-items: center; gap: 10px; padding: 5px;">
+  
+    <!-- Floating Logo -->
+<a href="http://staging.ttl-group.co.uk/p/11" target="_blank" id="floatingLogo">
+    <img src="/images/logo_landingpage-0d8d963ebbe17a10ede96a922cf4bd54f17c90217c746cab6fb730a90cb28582.png" alt="TTL Virtual Logo">
+  </a>
+    <!-- Toolbar buttons -->
 <div id="myToolbar"></div>
+  
+</div>
 <div id="myInspector"></div>
 <div id="myViewer">
     <canvas id="myCanvas"></canvas>
