@@ -1,0 +1,17 @@
+{
+    "id": "xeovision",
+    "name": "XeoVision Project",
+    "models": [
+      {
+        "id": "51335-MEE-MB-ZZ-M3-J-30000-25",
+        "name": "51335-MEE-MB-ZZ-M3-J-30000-25"
+      }
+    ],
+    "viewerConfigs": {
+        "externalMetadata": true
+     },
+     "viewerContent": {
+       "modelsLoaded": ["51335-MEE-MB-ZZ-M3-J-30000-25"]
+    }
+  }
+  

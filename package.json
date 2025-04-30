@@ -11,7 +11,10 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --config rollup.config.js; rollup --config rollup.dev.config.js;  cp locales/messages.js ./dist/.",
+    "build": "npm run rollup-main && npm run rollup-dev && npm run copy-locale",
+    "rollup-main": "rollup --config rollup.config.js",
+    "rollup-dev": "rollup --config rollup.dev.config.js",
+    "copy-locale": "xcopy locales\\messages.js dist\\ /Y",
     "docs": "./node_modules/.bin/esdoc",
     "publish": "npm publish --access public"
   },

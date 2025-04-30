@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xeokit BIM Viewer - UMD Version</title>
+    <link rel="stylesheet" href="/dist/xeokit-bim-viewer.css">
+    <link rel="stylesheet" href="/app/css/style.css">
+    <link rel="stylesheet" href="/app/lib/fontawesome-free-5.11.2-web/css/all.min.css">
+</head>
+
+<body>
+    <!-- Viewer Container -->
+    <div id="myViewer" style="width: 100vw; height: 100vh; position: relative; background: #f0f0f0">
+        <!-- Toolbar -->
+        <div id="myToolbar" style="position: absolute; top: 10px; left: 10px;"></div>
+        <!-- Explorer Tree -->
+        <div id="myExplorer"
+            style="position: absolute; top: 60px; left: 10px; width: 250px; height: 400px; overflow: auto; background: white; border: 1px solid #ccc;">
+        </div>
+        <!-- Inspector -->
+        <div id="myInspector"
+            style="position: absolute; top: 60px; right: 10px; width: 250px; height: 400px; overflow: auto; background: white; border: 1px solid #ccc;">
+        </div>
+        <!-- Canvas for 3D Scene -->
+        <canvas id="myCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
+        <!-- NavCube -->
+        <canvas id="myNavCubeCanvas" width="150" height="150"
+            style="position: absolute; bottom: 10px; right: 10px; background: transparent;"></canvas>
+    </div>
+
+    <!-- UMD Scripts -->
+    <script src="/dist/xeokit-bim-viewer.umd.js"></script>
+    <!-- <script src="/dist/messages.js"></script> -->
+
+    <script>
+        const url = new URL(window.location.href);
+        const projectId = url.searchParams.get("projectId");
+        const modelId = url.searchParams.get("modelId");
+        const highlightObject = url.searchParams.get("highlightObject");
+    
+        const viewer = new BIMViewer({   
+            dataDir: "/app/data",
+            projectId: projectId,
+            modelId: modelId,
+            domContainer: document.getElementById("myViewer"),
+            explorerElement: document.getElementById("myExplorer"),
+            inspectorElement: document.getElementById("myInspector"),
+            toolbarElement: document.getElementById("myToolbar"),
+            canvasElement: document.getElementById("myCanvas"),
+            navCubeCanvasElement: document.getElementById("myNavCubeCanvas"),
+            translateMessages: (key) => window.localeMessages ? window.localeMessages[key] || key : key
+        });
+
+        // Get highlightObject from URL
+        const highlightObjectId = highlightObject;
+
+        // Safely wait for scene fully built
+        viewer.on("sceneBuilt", () => {
+            if (highlightObjectId) {
+                const sceneObject = viewer.scene.objects[highlightObjectId];
+
+                if (sceneObject) {
+                    // Highlight the object
+                    viewer.scene.setObjectHighlighted({
+                        objectId: highlightObjectId,
+                        highlighted: true
+                    });
+
+                    // Smooth fly-to
+                    viewer.cameraFlight.flyTo({
+                        aabb: sceneObject.aabb,
+                        duration: 2.0
+                    });
+
+                    console.log(`Highlighted and zoomed to object: ${highlightObjectId}`);
+                } else {
+                    console.warn(`Object ID not found in scene: ${highlightObjectId}`);
+                    // fallback - zoom to full model
+                    viewer.cameraFlight.flyTo({ aabb: viewer.scene.getAABB() });
+                }
+            } else {
+                // No highlightObject - just zoom to model
+                viewer.cameraFlight.flyTo({ aabb: viewer.scene.getAABB() });
+            }
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>
